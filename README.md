@@ -1,50 +1,36 @@
-# React + TypeScript + Vite
+# Gerenciamento de Tarefas - Front-End
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descrição
+Este projeto é a interface de um sistema de gerenciamento de tarefas desenvolvido com React e Styled Components. O objetivo é permitir que usuários autenticados criem, visualizem, editem, filtrem e excluam tarefas.
 
-Currently, two official plugins are available:
+## Funcionalidades Principais
+1. **Autenticação de Usuário:**
+   - Página de login e cadastro com validação de credenciais.
+   - Armazenamento seguro do token JWT no localStorage.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Gerenciamento de Tarefas:**
+   - Exibição de todas as tarefas em uma tabela.
+   - Colunas incluem: Título, Descrição, Status, Prioridade, Data do Fim e Ações.
 
-## Expanding the ESLint configuration
+3. **Criação de Tarefas:**
+   - Modal para adicionar novas tarefas com campos como título, descrição, status, prioridade e data do fim.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+4. **Edição de Tarefas:**
+   - Modal específico para editar tarefas existentes.
 
-- Configure the top-level `parserOptions` property like this:
+5. **Exclusão de Tarefas:**
+   - Ação rápida para excluir uma tarefa.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+6. **Filtros Avançados:**
+   - Filtro por status: pendente, em progresso ou finalizada.
+   - Filtro por prioridade: baixa, média ou alta.
+   - Combinação de filtros aplicada dinamicamente à tabela.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+7. **Feedback ao Usuário:**
+   - Notificações visuais com a biblioteca `react-hot-toast` para sucesso ou erros nas ações.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Tecnologias Utilizadas
+- **React**: Biblioteca para construção da interface do usuário.
+- **Styled Components**: Estilização baseada em componentes.
+- **Phosphor Icons**: Ícones modernos e customizáveis.
+- **React Hot Toast**: Biblioteca para notificações.
