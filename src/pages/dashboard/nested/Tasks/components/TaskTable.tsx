@@ -126,6 +126,7 @@ const StyledTable = styled.table`
     padding: 0.75rem;
     border: 1px solid #ddd;
     text-align: left;
+    word-wrap: break-word; /* Garante a quebra de texto */
   }
 
   th {
@@ -140,7 +141,39 @@ const StyledTable = styled.table`
   tbody tr:hover {
     background-color: #e9ecef;
   }
+
+  /* Define larguras fixas para as colunas */
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 20%; /* Título */
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 30%; /* Descrição */
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 15%; /* Status */
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 10%; /* Prioridade */
+  }
+
+  th:nth-child(5),
+  td:nth-child(5) {
+    width: 15%; /* Data do Fim */
+  }
+
+  th:nth-child(6),
+  td:nth-child(6) {
+    width: 10%; /* Ações */
+  }
 `;
+
 
 const ActionContainer = styled.div`
   display: flex;
