@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 interface TaskFilterProps {
@@ -6,68 +6,60 @@ interface TaskFilterProps {
 }
 
 const TaskFilter: React.FC<TaskFilterProps> = ({ onFilterChange }) => {
-  const [status, setStatus] = useState("");
-  const [priority, setPriority] = useState("");
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onFilterChange({ status: e.target.value, priority: "" });
+  };
 
-  const handleFilterChange = () => {
-    onFilterChange({ status, priority });
+  const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onFilterChange({ status: "", priority: e.target.value });
   };
 
   return (
-    <FilterContainer>
-      <div>
+    <FilterWrapper>
+      <div className="filter-group">
         <label htmlFor="status">Status:</label>
-        <select
-          id="status"
-          value={status}
-          onChange={(e) => {
-            setStatus(e.target.value);
-            handleFilterChange();
-          }}
-        >
+        <select id="status" onChange={handleStatusChange}>
           <option value="">Todos</option>
           <option value="pendente">Pendente</option>
           <option value="emProgresso">Em Progresso</option>
           <option value="finalizada">Finalizada</option>
         </select>
       </div>
-      <div>
+      <div className="filter-group">
         <label htmlFor="priority">Prioridade:</label>
-        <select
-          id="priority"
-          value={priority}
-          onChange={(e) => {
-            setPriority(e.target.value);
-            handleFilterChange();
-          }}
-        >
+        <select id="priority" onChange={handlePriorityChange}>
           <option value="">Todas</option>
           <option value="baixa">Baixa</option>
           <option value="média">Média</option>
           <option value="alta">Alta</option>
         </select>
       </div>
-    </FilterContainer>
+    </FilterWrapper>
   );
 };
 
-
-/* Styled Components */
-const FilterContainer = styled.div`
-display: flex;
-gap: 1rem;
-margin-bottom: 1rem;
-
-label {
-    margin-right: 0.5rem;
-    font-size: 0.9rem;
-    }
-    
-    select {
-        padding: 0.4rem;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        }
-        `;
-        
 export default TaskFilter;
+
+const FilterWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+  }
+`;

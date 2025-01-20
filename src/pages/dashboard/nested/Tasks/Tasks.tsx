@@ -23,7 +23,6 @@ export const Tasks = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState({ status: "", priority: "" });
 
-  // Função para buscar as tarefas
   const getTasks = async () => {
     try {
       const fetchedTasks = await fetchTasks();
@@ -34,30 +33,25 @@ export const Tasks = () => {
     }
   };
 
-  // Aplica os filtros às tarefas
-  const applyFilters = () => {
-    let filtered = tasks;
+  const handleFilterChange = (newFilters: { status: string; priority: string }) => {
+    setFilters(newFilters);
+    const filtered = tasks.filter((task) => {
+      const matchesStatus = newFilters.status
+        ? task.status === newFilters.status
+        : true;
+      const matchesPriority = newFilters.priority
+        ? task.priority === newFilters.priority
+        : true;
 
-    if (filters.status) {
-      filtered = filtered.filter((task) => task.status === filters.status);
-    }
-
-    if (filters.priority) {
-      filtered = filtered.filter((task) => task.priority === filters.priority);
-    }
+      return matchesStatus && matchesPriority;
+    });
 
     setFilteredTasks(filtered);
   };
 
-  // Chamada inicial para carregar tarefas
   useEffect(() => {
     getTasks();
   }, []);
-
-  // Aplica filtros toda vez que o estado de filtros ou tarefas muda
-  useEffect(() => {
-    applyFilters();
-  }, [filters, tasks]);
 
   return (
     <TasksWrapper>
@@ -70,7 +64,7 @@ export const Tasks = () => {
           + Adicionar Tarefa
         </button>
       </div>
-      <TaskFilter onFilterChange={setFilters} />
+      <TaskFilter onFilterChange={handleFilterChange} />
       <TaskTable tasks={filteredTasks} fetchTasks={getTasks} />
       {isModalOpen && (
         <TaskModal
