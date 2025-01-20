@@ -1,58 +1,57 @@
-import { useState, useEffect } from 'react';
-import { useMatches } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "../../../components/ui/breadcrumb";
 
-
-export function Header() {
-
-  
-  const matches = useMatches();
-
-
-    
+export const Header: React.FC = () => {
+  const username = localStorage.getItem("userName");
   return (
-    <HeaderStyle>
-      <Breadcrumb>
-        <BreadcrumbList>
-          {matches.map((match, index) => {
-            const breadcrumbLabel = match.pathname.split("/").pop();
-            return (
-              <div key={index} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href={match.pathname} style={{ fontWeight: "500" }}>
-                    {breadcrumbLabel}
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                {index < matches.length - 1 && <BreadcrumbSeparator />}
-              </div>
-            );
-          })}
-        </BreadcrumbList>
-      </Breadcrumb>
-
-    </HeaderStyle>
+    <HeaderWrapper>
+      <BreadcrumbWrapper>
+        <BreadcrumbItem href="/user">User</BreadcrumbItem>
+        <BreadcrumbSeparator>›</BreadcrumbSeparator>
+        <BreadcrumbItem href="/user/dashboard">Dashboard</BreadcrumbItem>
+        <BreadcrumbSeparator>›</BreadcrumbSeparator>
+        <BreadcrumbItem href="/user/dashboard/home">Home</BreadcrumbItem>
+      </BreadcrumbWrapper>
+      <WelcomeText>Seja bem-vindo, {username}</WelcomeText>
+    </HeaderWrapper>
   );
-}
+};
 
-const HeaderStyle = styled.div`
-  height: 100%;
-  width: 100%;
-  background-color: white;
-  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.05);
+// Estilos do Header
+const HeaderWrapper = styled.header`
   display: flex;
-  padding: 20px;
+  justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+`;
 
-  .user-container {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+// Estilos do Breadcrumb
+const BreadcrumbWrapper = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
 
-  .user-container p {
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.7);
+const BreadcrumbItem = styled.a`
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: #1d72b8;
   }
+`;
+
+const BreadcrumbSeparator = styled.span`
+  color: #888;
+  font-size: 0.9rem;
+`;
+
+// Estilos para o texto de boas-vindas
+const WelcomeText = styled.span`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
 `;

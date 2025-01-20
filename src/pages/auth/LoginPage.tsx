@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeSlash } from "phosphor-react";
-import { loginUser } from "./api/loginUser.tsx";
+import { loginUser } from "./api/loginUser";
 import styled from "styled-components";
-import toast from "react-hot-toast"; // Biblioteca para notificações
+import toast from "react-hot-toast";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -17,12 +17,21 @@ export const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await loginUser(email, password); // Chamada à API
-      localStorage.setItem("token", response.token); // Salva o token no localStorage
-      toast.success("Login realizado com sucesso!"); // Notificação de sucesso
-      navigate("/user/dashboard/home"); // Redireciona para o dashboard
+      const response = await loginUser(email, password);
+
+      // Verifica se a resposta contém os dados esperados
+      if (response && response.access_token) {
+        const token = response.access_token;
+        localStorage.setItem("token", token);
+
+        toast.success("Login realizado com sucesso!");
+        navigate("/user/dashboard/home");
+      } else {
+        throw new Error("Resposta da API inválida. Verifique os detalhes do servidor.");
+      }
     } catch (error: any) {
-      toast.error(error.message || "Erro ao realizar login. Tente novamente."); // Notificação de erro
+      console.error("Erro no login:", error);
+      toast.error(error.message || "Erro ao realizar login. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +77,10 @@ export const LoginPage = () => {
         </form>
         <p>
           Não tem uma conta?{" "}
-          <button onClick={() => navigate("/register")} className="register-link">
+          <button
+            onClick={() => navigate("/register")}
+            className="register-link"
+          >
             Registre-se
           </button>
         </p>

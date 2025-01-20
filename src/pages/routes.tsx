@@ -1,7 +1,6 @@
 import { RouteObject, redirect } from "react-router-dom";
 import { Home } from "./dashboard/nested/home/homepage";
 import { Tasks } from "./dashboard/nested/Tasks/Tasks";
-import { Profile } from "./dashboard/nested/Profile/Profile";
 import { LoginPage } from "./auth/LoginPage";
 import { RegisterPage } from "./auth/RegisterPage"; // Importando a página de registro
 import { Dashboard } from "./dashboard/dashboard";
@@ -46,11 +45,6 @@ export const routes: RouteObject[] = [
         path: "tasks",
         element: <Tasks />,
         id: "tasks",
-      },
-      {
-        path: "profile",
-        element: <Profile />,
-        id: "profile",
       },
     ],
   },
